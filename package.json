@@ -1,0 +1,22 @@
+{
+  "name": "iot-device",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jacks205/iot-device.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jacks205/iot-device/issues"
+  },
+  "homepage": "https://github.com/jacks205/iot-device#readme",
+  "dependencies": {
+    "aws-iot-device-sdk": "^1.0.9"
+  }
+}
