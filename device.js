@@ -10,7 +10,7 @@ var thingShadows = awsIot.thingShadow({
    keyPath: './certs/6ed8d31c27-private.pem.key',
   certPath: './certs/6ed8d31c27-certificate.pem.crt',
     caPath: './certs/rootCA.pem',
-  clientId: 'mything',
+  clientId: 'thing',
     region: 'us-west-2'
 });
 var globalSocket;
@@ -19,10 +19,10 @@ function setupIoTConnection(thingShadows) {
   return function() {
     /**
       After connecting to the AWS IoT platform, register interest in the
-      Thing Shadow named 'mything'.
+      Thing Shadow named 'thing'.
     */
-    console.log('Reqesting updates on mything');
-    thingShadows.register('mything');
+    console.log('Reqesting updates on thing');
+    thingShadows.register('thing');
   }
 }
 
@@ -32,7 +32,8 @@ function notifyGUIOfStatus(socket) {
      Emit state data over WebSocket to client (GUI)
     */
     console.log(JSON.stringify(stateObject));
-    globalSocket.emit('state', stateObject);
+    if(globalSocket)
+      globalSocket.emit('state', stateObject);
   }
 }
 
@@ -42,15 +43,17 @@ thingShadows.on('status', notifyGUIOfStatus(globalSocket));
 // But get this
 thingShadows.on('delta',
     function(thingName, stateObject) {
-       console.log('received delta '+' on '+thingName+': '+
+        console.log('received delta '+' on '+thingName+': '+
                    JSON.stringify(stateObject));
-        globalSocket.emit('state', stateObject);
+        if(globalSocket)
+          globalSocket.emit('state', stateObject);
         var color = stateObject.state.color;
+        console.log(color);
         /**
           We see that someone has requested to change the state. So
           here we acknowledge that it has been changed by "reporting" back.
         */
-        thingShadows.update('mything', { state: { reported: { color: color }}})
+        thingShadows.update('thing', { "state": { "reported": { "color": color }}});
     });
 
 
