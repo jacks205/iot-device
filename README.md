@@ -5,6 +5,7 @@ usage of AWS IoT.
 
 ## Running
 
-`node start`
+1. Start device with `node start`
+2. Start device GUI `gulp` (when in `/gui`)
 
-Visit `localhost:4200/` to see a visual status of the state of the device.
+Visit `localhost:3000/` to see a visual status of the state of the device.
