@@ -5,7 +5,15 @@ usage of AWS IoT.
 
 ## Running
 
-1. Start device with `node start`
-2. Start device GUI `gulp` (when in `/gui`)
+`npm start`
 
-Visit `localhost:3000/` to see a visual status of the state of the device.
+This starts the MQTT client and a static server to serve our example GUI. Visit `localhost:8080` to see a visual status of the state of the device.
+
+## Developing GUI
+
+Make sure you are in `/gui`.
+
+1. `npm install`
+2. `gulp`
+
+Visit `localhost:3000`.

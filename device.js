@@ -1,6 +1,6 @@
-var fs = require('fs');
 var awsIot = require('aws-iot-device-sdk');
 var http = require('http');
+var staticServer = require('node-static');
 var io = require('socket.io')();
 
 /**
@@ -64,3 +64,12 @@ io.on('connection', function(socket) {
 });
 
 io.listen(4000);
+
+
+// Start static server to serve GUI
+var files = new staticServer.Server('./gui/dist');
+http.createServer(function (request, response) {
+    request.addListener('end', function () {
+      files.serve(request, response);
+    }).resume();
+}).listen(8080);
